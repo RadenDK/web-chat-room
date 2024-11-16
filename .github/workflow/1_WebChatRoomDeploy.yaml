@@ -1,0 +1,26 @@
+name: Deploy WebChatRoom API
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'WebChatRoom/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Deploy WebChatRoom
+        uses: ./.github/actions/deploy-docker
+        with:
+          image_name: webchatroom-api:latest
+          project_dir: ./WebChatRoom
+          container_name: webchatroom-api-container
+          port: 7000
+          vps_host: ${{ secrets.DIGITAL_OCEAN_IP }}
+          vps_user: ${{ secrets.DIGITAL_OCEAN_USER }}
+          vps_ssh_key: ${{ secrets.DIGITAL_OCEAN_SSH_KEY }}

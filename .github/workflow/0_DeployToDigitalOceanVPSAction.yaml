@@ -1,0 +1,58 @@
+name: Deploy Docker Image
+description: A reusable action to deploy a Docker container to a VPS.
+
+inputs:
+  image_name:
+    description: The name of the Docker image.
+    required: true
+  project_dir:
+    description: The directory of the project to build.
+    required: true
+  container_name:
+    description: The name of the container to run on the VPS.
+    required: true
+  port:
+    description: The port to expose on the VPS.
+    required: true
+  vps_host:
+    description: The VPS hostname or IP address.
+    required: true
+  vps_user:
+    description: The VPS username.
+    required: true
+  vps_ssh_key:
+    description: The private SSH key for the VPS.
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Build Docker Image
+      run: docker build -t ${{ inputs.image_name }} ${{ inputs.project_dir }}
+
+    - name: Save Docker Image as TAR
+      run: docker save ${{ inputs.image_name }} -o image.tar
+
+    - name: Transfer TAR to VPS
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ inputs.vps_host }}
+        username: ${{ inputs.vps_user }}
+        key: ${{ inputs.vps_ssh_key }}
+        source: image.tar
+        target: /root/
+
+    - name: Deploy on VPS
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ inputs.vps_host }}
+        username: ${{ inputs.vps_user }}
+        key: ${{ inputs.vps_ssh_key }}
+        script: |
+          docker load -i /root/image.tar
+          docker stop ${{ inputs.container_name }} || true
+          docker rm ${{ inputs.container_name }} || true
+          docker run -d -p ${{ inputs.port }}:${{ inputs.port }} \
+          --name ${{ inputs.container_name }} \
+          ${{ inputs.image_name }}
+          rm -f /root/image.tar
