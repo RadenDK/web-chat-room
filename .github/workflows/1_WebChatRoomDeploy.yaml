@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Deploy WebChatRoom
-        uses: ./.github/actions/deploy-docker
+        uses: ./.github/actions/DeployToDigitalOceanVPS
         with:
           image_name: webchatroom-api:latest
           project_dir: ./WebChatRoom
