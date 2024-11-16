@@ -1,0 +1,83 @@
+/* General container for the chat interface */
+.chat-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0px;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+/* Chat log where messages will appear */
+.chat-log {
+    height: 85vh; /* 80% of the viewport height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    max-width: 610px;
+}
+
+    /* Individual message styling */
+    .chat-log .message {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        margin-bottom: 12px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        width: 95%;
+    }
+
+/* Header for each message (sender and timestamp) */
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+    /* Sender name styling */
+    .message-header .sender {
+        font-weight: bold;
+    }
+
+    /* Timestamp styling */
+    .message-header .timestamp {
+        font-style: italic;
+        color: #888;
+    }
+
+/* Message body (content of the message) */
+.message-body {
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Styling for the input box */
+.message-input {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    display: flex;
+}
+
+    .message-input input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        font-size: 1rem;
+    }
+
+        /* Optional: Adding focus style for the input */
+        .message-input input:focus {
+            outline: none;
+            border-color: #4e73df;
+            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+        }

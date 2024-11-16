@@ -1,11 +1,11 @@
-name: Deploy WebChatRoom API
+name: Deploy WebChatRoom
 
 on:
   push:
     branches:
       - main
-    #paths:
-    #  - 'WebChatRoom/**'
+    paths:
+      - 'WebChatRoom/**'
 
 jobs:
   deploy:
@@ -17,9 +17,9 @@ jobs:
       - name: Deploy WebChatRoom
         uses: ./.github/actions/DeployToDigitalOceanVPS
         with:
-          image_name: webchatroom-api:latest
+          image_name: webchatroom:latest
           project_dir: ./WebChatRoom
-          container_name: webchatroom-api-container
+          container_name: webchatroom-container
           port: 7000
           vps_host: ${{ secrets.DIGITAL_OCEAN_IP }}
           vps_user: ${{ secrets.DIGITAL_OCEAN_USER }}
