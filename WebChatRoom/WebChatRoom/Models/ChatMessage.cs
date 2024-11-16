@@ -6,5 +6,4 @@ namespace WebChatRoom.Models
         public string Timestamp { get; set; }
         public string MessageBody { get; set; }
     }
-
 }
