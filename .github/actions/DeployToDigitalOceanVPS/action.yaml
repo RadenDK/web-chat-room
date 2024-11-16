@@ -37,22 +37,16 @@ runs:
 
     - name: Transfer TAR to VPS
       shell: bash
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ inputs.vps_host }}
-        username: ${{ inputs.vps_user }}
-        key: ${{ inputs.vps_ssh_key }}
-        source: image.tar
-        target: /root/
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ inputs.vps_ssh_key }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        scp -o StrictHostKeyChecking=no image.tar ${{ inputs.vps_user }}@${{ inputs.vps_host }}:/root/
 
     - name: Deploy on VPS
       shell: bash
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ inputs.vps_host }}
-        username: ${{ inputs.vps_user }}
-        key: ${{ inputs.vps_ssh_key }}
-        script: |
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ inputs.vps_user }}@${{ inputs.vps_host }} << 'EOF'
           docker load -i /root/image.tar
           docker stop ${{ inputs.container_name }} || true
           docker rm ${{ inputs.container_name }} || true
@@ -60,3 +54,4 @@ runs:
           --name ${{ inputs.container_name }} \
           ${{ inputs.image_name }}
           rm -f /root/image.tar
+        EOF
