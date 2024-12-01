@@ -4,6 +4,6 @@ namespace WebChatRoom.Models
     {
         public string Sender { get; set; }
         public string Timestamp { get; set; }
-        public string MessageBody { get; set; }
+        public string Message { get; set; }
     }
 }
