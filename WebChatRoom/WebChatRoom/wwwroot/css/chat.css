@@ -3,7 +3,6 @@
     width: 100%;
     max-width: 600px;
     margin: 20px auto;
-    padding: 0px;
     height: 100%;
     display: flex;
     flex-direction: column-reverse;
@@ -11,73 +10,78 @@
 
 /* Chat log where messages will appear */
 .chat-log {
-    height: 85vh; /* 80% of the viewport height */
-    overflow-y: auto; /* Enable vertical scrolling */
+    height: 85vh;
+    overflow-y: auto;
     display: flex;
     flex-direction: column-reverse;
     width: 100%;
-    max-width: 610px;
+    border: 1px solid #ddd; /* Add border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #ffffff; /* Optional: background color */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-    /* Individual message styling */
-    .chat-log .message {
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        margin-bottom: 12px;
-        padding: 10px;
-        background-color: #f9f9f9;
-        width: 95%;
-    }
-
-/* Header for each message (sender and timestamp) */
-.message-header {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    color: #555;
-    margin-bottom: 6px;
-}
-
-    /* Sender name styling */
-    .message-header .sender {
-        font-weight: bold;
-    }
-
-    /* Timestamp styling */
-    .message-header .timestamp {
-        font-style: italic;
-        color: #888;
-    }
-
-/* Message body (content of the message) */
-.message-body {
-    font-size: 1rem;
-    color: #333;
-}
-
-/* Styling for the input box */
+/* Message input area: flex row for username and message box */
 .message-input {
     position: fixed;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    width: 90%;
-    max-width: 600px;
-    display: flex;
+    width: 100%;
+    max-width: 600px; /* Matches the chat log's width */
+    display: flex; /* Arrange username and message input side by side */
+    gap: 10px; /* Space between inputs */
+    align-items: center;
 }
 
-    .message-input input {
-        width: 100%;
+/* Username input field */
+.username-field {
+    flex: 1; /* Take minimal space */
+    max-width: 120px; /* Reduce width of username input */
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+}
+
+/* Message box: container for input and button */
+.message-box {
+    flex: 4; /* Take remaining space */
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd; /* Border around the entire container */
+    border-radius: 6px; /* Rounded corners for the box */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Ensure button stays inside the border */
+    width: 100%; /* Ensure it uses full available space */
+}
+
+    /* Message input field */
+    .message-box input {
+        flex: 1;
         padding: 12px;
-        border-radius: 6px;
-        border: 1px solid #ddd;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        border: none; /* Remove border to blend with container */
+        outline: none;
         font-size: 1rem;
     }
 
-        /* Optional: Adding focus style for the input */
-        .message-input input:focus {
-            outline: none;
-            border-color: #4e73df;
-            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
-        }
+/* Send button inside the message box */
+.send-button {
+    flex-shrink: 0; /* Prevent the button from shrinking */
+    background-color: #4e73df;
+    color: #fff;
+    border: none;
+    padding: 8px 16px; /* Padding for better sizing */
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    /* Button hover effect */
+    .send-button:hover {
+        background-color: #3757c0;
+    }

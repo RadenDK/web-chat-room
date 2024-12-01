@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Chat Page";
 }
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,141 +8,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
 
-    <!-- Link to the external CSS file -->
-    <link href="css/chat.css" rel="stylesheet" />
-</head>
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/favicon_io/site.webmanifest">
 
+    <!-- Link to the external CSS file -->
+    <link href="~/css/chat.css" rel="stylesheet" />
+
+    <!-- Include SignalR JavaScript library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+</head>
 <body>
     <div class="chat-container">
         <!-- Chat log (messages will appear here) -->
         <div class="chat-log" id="chatLog">
-            <!-- Hardcoded chat messages -->
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Alice</span>
-                    <span class="timestamp">12:01 PM</span>
-                </div>
-                <div class="message-body">Hello! How are you? testing this should be a way to long message that should require a bigger box a way to long message that should require a bigger box a way to long message that should require a bigger box a way to long message that should require a bigger box a way to long message that should require a bigger box a way to long message that should require a bigger box </div>
-            </div>
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Bob</span>
-                    <span class="timestamp">12:02 PM</span>
-                </div>
-                <div class="message-body">I'm good, thanks for asking!</div>
-            </div>
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Alice</span>
-                    <span class="timestamp">12:05 PM</span>
-                </div>
-                <div class="message-body">That's great to hear!</div>
-            </div>
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Bob</span>
-                    <span class="timestamp">12:10 PM</span>
-                </div>
-                <div class="message-body">What have you been up to lately?</div>
-            </div>
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Alice</span>
-                    <span class="timestamp">12:12 PM</span>
-                </div>
-                <div class="message-body">Just working on some new projects. What about you?</div>
-            </div>
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Bob</span>
-                    <span class="timestamp">12:15 PM</span>
-                </div>
-                <div class="message-body">Same here, staying busy with work.</div>
-            </div>
-            <!-- More hardcoded messages to make it overflow -->
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Alice</span>
-                    <span class="timestamp">12:18 PM</span>
-                </div>
-                <div class="message-body">I should send you some of my work to get feedback!</div>
-            </div>
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Bob</span>
-                    <span class="timestamp">12:20 PM</span>
-                </div>
-                <div class="message-body">I'd love to see it!</div>
-            </div>
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Alice</span>
-                    <span class="timestamp">12:25 PM</span>
-                </div>
-                <div class="message-body">I'll send it over soon.</div>
-            </div>
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Bob</span>
-                    <span class="timestamp">12:30 PM</span>
-                </div>
-                <div class="message-body">Sounds good!</div>
-            </div>
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Bob</span>
-                    <span class="timestamp">12:30 PM</span>
-                </div>
-                <div class="message-body">Sounds good!</div>
-            </div>
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Bob</span>
-                    <span class="timestamp">12:30 PM</span>
-                </div>
-                <div class="message-body">Sounds good!</div>
-            </div>
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Bob</span>
-                    <span class="timestamp">12:30 PM</span>
-                </div>
-                <div class="message-body">Sounds good!</div>
-            </div>
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Bob</span>
-                    <span class="timestamp">12:30 PM</span>
-                </div>
-                <div class="message-body">Sounds good!</div>
-            </div>
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Bob</span>
-                    <span class="timestamp">12:30 PM</span>
-                </div>
-                <div class="message-body">Sounds good!</div>
-            </div>
-            <div class="message">
-                <div class="message-header">
-                    <span class="sender">Bob</span>
-                    <span class="timestamp">12:30 PM</span>
-                </div>
-                <div class="message-body">Sounds good!</div>
-            </div>
-
+            <!-- Messages will be dynamically added here -->
         </div>
 
         <!-- Message input area -->
         <div class="message-input">
-            <input type="text" id="messageInput" class="form-control" placeholder="Type a message" />
+            <!-- Username Input -->
+            <input type="text"
+                   id="usernameInput"
+                   class="form-control username-field"
+                   placeholder="Username"
+                   autocomplete="off" />
+
+            <!-- Message Box with Send Button -->
+            <div class="message-box">
+                <input type="text"
+                       id="messageInput"
+                       class="form-control"
+                       placeholder="Type a message"
+                       autocomplete="off" />
+                <button id="sendMessageBtn" class="send-button">➔</button>
+            </div>
         </div>
     </div>
 
-    <footer>
-    </footer>
-
-    <!-- Optional: Link to JavaScript file for functionality -->
-    <!-- <script src="js/chat.js"></script> -->
+    <!-- Include the external JavaScript file -->
+    <script src="~/js/chat.js"></script>
 </body>
 </html>
