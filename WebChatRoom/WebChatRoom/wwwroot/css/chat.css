@@ -17,9 +17,42 @@
     width: 100%;
     border: 1px solid #ddd; /* Add border */
     border-radius: 8px; /* Rounded corners */
-    background-color: #ffffff; /* Optional: background color */
+    background-color: #f9f9f9; /* Light gray background for better contrast */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 10px; /* Add padding to keep messages away from the edges */
 }
+
+    /* Individual message styling */
+    .chat-log div {
+        margin-bottom: 10px; /* Space between messages */
+        padding: 8px 12px; /* Padding for each message */
+        border-radius: 6px; /* Rounded corners */
+        background-color: #e7f0fd; /* Light blue background for messages */
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for messages */
+        font-size: 1rem;
+        color: #333; /* Dark text for readability */
+        word-wrap: break-word; /* Handle long messages gracefully */
+    }
+
+    /* Anonymous messages */
+    .chat-log .anonymous {
+        background-color: #f0f0f0; /* Gray background for anonymous messages */
+        color: #555; /* Slightly lighter text for anonymous */
+    }
+
+    /* Chat log messages: bold username */
+    .chat-log div span.username {
+        font-weight: bold;
+        margin-right: 5px;
+        color: #4e73df; /* Match send button color */
+    }
+
+    /* Timestamp styling */
+    .chat-log div span.timestamp {
+        font-size: 0.8rem;
+        color: #999; /* Light gray for timestamps */
+        margin-right: 10px;
+    }
 
 /* Message input area: flex row for username and message box */
 .message-input {
@@ -61,10 +94,18 @@
     .message-box input {
         flex: 1;
         padding: 12px;
-        border: none; /* Remove border to blend with container */
-        outline: none;
+        border: 1px solid #ddd; /* Add border for consistency */
+        border-radius: 6px; /* Match the styling */
+        outline: none; /* Remove default focus outline */
         font-size: 1rem;
     }
+
+        /* Input focus styling */
+        .message-box input:focus,
+        .username-field:focus {
+            border: 1px solid #4e73df; /* Blue border on focus */
+            box-shadow: 0 0 4px #4e73df; /* Add a subtle glow */
+        }
 
 /* Send button inside the message box */
 .send-button {
