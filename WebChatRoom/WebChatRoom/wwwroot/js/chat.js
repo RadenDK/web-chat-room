@@ -13,15 +13,36 @@ function appendMessage(chatLog, timestamp, sender, message) {
     const formatter = new Intl.DateTimeFormat('en-US', {
         hour: '2-digit',
         minute: '2-digit',
-        second: '2-digit',
         hour12: false
     });
 
     const formattedTimestamp = timestamp ? formatter.format(new Date(timestamp)) : "";
     const messageElement = document.createElement("div");
-    messageElement.textContent = `${formattedTimestamp} ${sender}: ${message}`;
+    messageElement.className = "chat-message";
+
+    // Add message content
+    messageElement.innerHTML = `
+        <span class="timestamp">${formattedTimestamp}</span>
+        <span class="username">${sender}</span>: 
+        <span class="message">${message}</span>
+    `;
+
+    // Position the message at the bottom of the chat log
+    messageElement.style.bottom = "0px";
+
+    // Append the message to the chat log
     chatLog.appendChild(messageElement);
+
+    // Adjust all messages to align with animation
+    const messages = chatLog.querySelectorAll(".chat-message");
+    messages.forEach((msg, index) => {
+        msg.style.animationDelay = `${index * 1}s`; // Stagger animations for each message
+    });
+
+    // Keep the chat log scrolling automatically
+    chatLog.scrollTop = chatLog.scrollHeight;
 }
+
 
 
 connection.on("LoadChatHistory", function (messages) {
