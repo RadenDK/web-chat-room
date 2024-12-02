@@ -5,124 +5,117 @@
     margin: 20px auto;
     height: 100%;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
 }
 
-/* Chat log where messages will appear */
+/* Chat log container */
 .chat-log {
     height: 85vh;
-    overflow-y: auto;
+    overflow-y: auto; /* Enable scrolling if needed */
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column-reverse; /* New messages appear at the bottom */
     width: 100%;
-    border: 1px solid #ddd; /* Add border */
+    border: 1px solid #ddd; /* Light border */
     border-radius: 8px; /* Rounded corners */
-    background-color: #f9f9f9; /* Light gray background for better contrast */
+    background-color: #f9f9f9; /* Light gray background */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    padding: 10px; /* Add padding to keep messages away from the edges */
+    padding: 10px; /* Padding inside the log */
 }
 
-    /* Individual message styling */
-    .chat-log div {
-        margin-bottom: 10px; /* Space between messages */
-        padding: 8px 12px; /* Padding for each message */
-        border-radius: 6px; /* Rounded corners */
-        background-color: #e7f0fd; /* Light blue background for messages */
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for messages */
-        font-size: 1rem;
-        color: #333; /* Dark text for readability */
-        word-wrap: break-word; /* Handle long messages gracefully */
-    }
+/* Individual chat messages */
+.chat-message {
+    margin: 10px 0; /* Space between messages */
+    padding: 8px 12px; /* Padding inside the message box */
+    border-radius: 6px; /* Rounded corners */
+    background-color: #e7f0fd; /* Light blue for messages */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for each message */
+    font-size: 1rem; /* Standard font size */
+    color: #333; /* Dark gray text for readability */
+    word-wrap: break-word; /* Handle long messages gracefully */
+}
 
-    /* Anonymous messages */
-    .chat-log .anonymous {
-        background-color: #f0f0f0; /* Gray background for anonymous messages */
-        color: #555; /* Slightly lighter text for anonymous */
-    }
-
-    /* Chat log messages: bold username */
-    .chat-log div span.username {
-        font-weight: bold;
-        margin-right: 5px;
-        color: #4e73df; /* Match send button color */
-    }
-
-    /* Timestamp styling */
-    .chat-log div span.timestamp {
-        font-size: 0.8rem;
+    /* Styling for timestamps */
+    .chat-message .timestamp {
+        font-size: 0.8rem; /* Smaller font size for timestamps */
         color: #999; /* Light gray for timestamps */
         margin-right: 10px;
     }
 
-/* Message input area: flex row for username and message box */
+    /* Styling for usernames */
+    .chat-message .username {
+        font-weight: bold; /* Bold usernames */
+        color: #4e73df; /* Blue text to match the theme */
+        margin-right: 5px;
+    }
+
+/* Message input area */
 .message-input {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
     width: 100%;
-    max-width: 600px; /* Matches the chat log's width */
+    max-width: 600px;
     display: flex; /* Arrange username and message input side by side */
     gap: 10px; /* Space between inputs */
     align-items: center;
+    margin-top: 20px; /* Add spacing above the input area */
 }
 
 /* Username input field */
 .username-field {
     flex: 1; /* Take minimal space */
-    max-width: 120px; /* Reduce width of username input */
+    max-width: 120px; /* Limit width of username input */
     padding: 12px;
     border-radius: 6px;
     border: 1px solid #ddd;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     font-size: 1rem;
+    outline: none; /* Remove default browser outline */
+    transition: border 0.2s ease, box-shadow 0.2s ease; /* Smooth focus effect */
 }
 
-/* Message box: container for input and button */
+/* Message input field container */
 .message-box {
     flex: 4; /* Take remaining space */
     display: flex;
     align-items: center;
-    border: 1px solid #ddd; /* Border around the entire container */
-    border-radius: 6px; /* Rounded corners for the box */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 6px; /* Rounded corners */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Ensure button stays inside the border */
-    width: 100%; /* Ensure it uses full available space */
+    overflow: hidden; /* Prevent text overflow */
+    width: 100%; /* Full width */
 }
 
-    /* Message input field */
+    /* Input field inside the message box */
     .message-box input {
-        flex: 1;
+        flex: 1; /* Stretch input field */
         padding: 12px;
-        border: 1px solid #ddd; /* Add border for consistency */
-        border-radius: 6px; /* Match the styling */
-        outline: none; /* Remove default focus outline */
+        border: none; /* Remove borders */
+        outline: none; /* Remove browser default outline */
         font-size: 1rem;
     }
 
-        /* Input focus styling */
-        .message-box input:focus,
-        .username-field:focus {
-            border: 1px solid #4e73df; /* Blue border on focus */
-            box-shadow: 0 0 4px #4e73df; /* Add a subtle glow */
-        }
-
-/* Send button inside the message box */
+/* Send button */
 .send-button {
-    flex-shrink: 0; /* Prevent the button from shrinking */
+    flex-shrink: 0; /* Prevent shrinking */
     background-color: #4e73df;
     color: #fff;
     border: none;
-    padding: 8px 16px; /* Padding for better sizing */
-    font-size: 1.2rem;
+    padding: 8px 16px; /* Padding for better size */
+    font-size: 1.2rem; /* Slightly larger font for emphasis */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-    /* Button hover effect */
     .send-button:hover {
-        background-color: #3757c0;
+        background-color: #3757c0; /* Darker blue on hover */
     }
+
+/* Focused inputs */
+.message-box input:focus,
+.username-field:focus {
+    border: 1px solid #4e73df; /* Blue border on focus */
+    box-shadow: 0px 0px 8px rgba(78, 115, 223, 0.5); /* Subtle blue glow */
+}
