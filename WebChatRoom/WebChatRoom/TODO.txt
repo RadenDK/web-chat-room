@@ -1,4 +1,0 @@
-Gør sådan at brugernavne er gemt i cookies og så kan man sige hvis du skifter brugernavn så erstat din cookie værdi med noget nyt
-Så kunne man også samtidige frigive det fra singleton listen sådan at andre kan bruge det navn
-
-Automatisk wipe chache hver nat
