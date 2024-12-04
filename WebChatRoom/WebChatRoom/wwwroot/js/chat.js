@@ -27,29 +27,22 @@ function appendMessage(chatLog, timestamp, sender, message) {
         <span class="message">${message}</span>
     `;
 
-    // Position the message at the bottom of the chat log
-    messageElement.style.bottom = "0px";
-
-    // Append the message to the chat log
-    chatLog.appendChild(messageElement);
-
-    // Adjust all messages to align with animation
-    const messages = chatLog.querySelectorAll(".chat-message");
-    messages.forEach((msg, index) => {
-        msg.style.animationDelay = `${index * 1}s`; // Stagger animations for each message
-    });
+    // Because we are using flex-direction: column-reverse,
+    // prepend so messages appear at the "bottom" visually.
+    chatLog.prepend(messageElement);
 
     // Keep the chat log scrolling automatically
     chatLog.scrollTop = chatLog.scrollHeight;
 }
 
-
-
 connection.on("LoadChatHistory", function (messages) {
     const chatLog = document.getElementById("chatLog");
     chatLog.innerHTML = ""; // Clear existing messages
 
-    messages.forEach(message => {
+    // Reverse messages so oldest is at the top visually (due to column-reverse)
+    const reversedMessages = [...messages].reverse();
+
+    reversedMessages.forEach(message => {
         appendMessage(chatLog, message.timestamp, message.sender, message.message);
     });
 });
