@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using System.Collections.Concurrent;
 using WebChatRoom.Models;
 using WebChatRoom.Singletons;
 
@@ -25,13 +24,10 @@ namespace WebChatRoom.Hubs
             await base.OnConnectedAsync();
         }
 
-
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
             Console.WriteLine($"Client disconnected: {Context.ConnectionId}, Reason: {exception?.Message}");
             await base.OnDisconnectedAsync(exception);
         }
-
-
     }
 }
