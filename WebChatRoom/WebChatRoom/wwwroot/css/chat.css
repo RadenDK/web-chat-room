@@ -47,8 +47,7 @@
     font-size: 1rem; /* Standard font size */
     color: #333; /* Dark gray text for readability */
     word-wrap: break-word; /* Handle long messages gracefully */
-    /* Apply the animation */
-    animation: fadeInUp 0.3s ease-out;
+    animation: fadeInUp 0.3s ease-out; /* Apply the animation */
 }
 
     /* Styling for timestamps */
@@ -69,15 +68,23 @@
 .message-input {
     width: 100%;
     max-width: 600px;
-    display: flex; /* Arrange username and message input side by side */
+    display: flex; /* Arrange inputs side by side */
     gap: 10px; /* Space between inputs */
-    align-items: center;
+    align-items: flex-start;
     margin-top: 20px; /* Add spacing above the input area */
+}
+
+/* Username container for input and popup */
+.username-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px; /* Space between input and popup */
 }
 
 /* Username input field */
 .username-field {
-    flex: 1; /* Take minimal space */
+    flex: 1;
     max-width: 120px; /* Limit width of username input */
     padding: 12px;
     border-radius: 6px;
@@ -86,6 +93,20 @@
     font-size: 1rem;
     outline: none; /* Remove default browser outline */
     transition: border 0.2s ease, box-shadow 0.2s ease; /* Smooth focus effect */
+}
+
+    /* Username field invalid styles */
+    .username-field.invalid {
+        border-color: red;
+        box-shadow: 0px 0px 8px rgba(255, 0, 0, 0.5);
+    }
+
+/* Popup for username status */
+.status-popup {
+    font-size: 0.85rem;
+    color: red;
+    margin-top: 4px;
+    display: none; /* Hidden by default */
 }
 
 /* Message input field container */

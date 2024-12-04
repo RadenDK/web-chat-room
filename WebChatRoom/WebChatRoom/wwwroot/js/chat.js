@@ -20,26 +20,20 @@ function appendMessage(chatLog, timestamp, sender, message) {
     const messageElement = document.createElement("div");
     messageElement.className = "chat-message";
 
-    // Add message content
     messageElement.innerHTML = `
         <span class="timestamp">${formattedTimestamp}</span>
         <span class="username">${sender}</span>: 
         <span class="message">${message}</span>
     `;
 
-    // Because we are using flex-direction: column-reverse,
-    // prepend so messages appear at the "bottom" visually.
     chatLog.prepend(messageElement);
-
-    // Keep the chat log scrolling automatically
     chatLog.scrollTop = chatLog.scrollHeight;
 }
 
 connection.on("LoadChatHistory", function (messages) {
     const chatLog = document.getElementById("chatLog");
-    chatLog.innerHTML = ""; // Clear existing messages
+    chatLog.innerHTML = "";
 
-    // Reverse messages so oldest is at the top visually (due to column-reverse)
     const reversedMessages = [...messages].reverse();
 
     reversedMessages.forEach(message => {
@@ -48,16 +42,13 @@ connection.on("LoadChatHistory", function (messages) {
 });
 
 connection.on("ReceiveMessage", function (user, message) {
-    console.log(`Message received from ${user}: ${message}`);
-
     const chatLog = document.getElementById("chatLog");
-    // Use the current time for newly received messages
     const currentTime = new Date().toISOString();
     appendMessage(chatLog, currentTime, user, message);
 });
 
 function sendMessage() {
-    const user = document.getElementById("usernameInput").value || "Anonymous"; // Default to Anonymous
+    const user = document.getElementById("usernameInput").value || "Anonymous";
     const message = document.getElementById("messageInput").value;
 
     if (!message.trim()) {
@@ -69,7 +60,6 @@ function sendMessage() {
         console.error(err.toString());
     });
 
-    // Clear the input field
     document.getElementById("messageInput").value = "";
 }
 
@@ -84,31 +74,52 @@ document.getElementById("sendMessageBtn").addEventListener("click", function () 
     sendMessage();
 });
 
-// Add event listener for blur event on usernameInput
 document.getElementById("usernameInput").addEventListener("blur", function () {
-    const username = document.getElementById("usernameInput").value;
+    const usernameInput = document.getElementById("usernameInput");
     const sendMessageBtn = document.getElementById("sendMessageBtn");
     const messageInput = document.getElementById("messageInput");
+    const username = usernameInput.value.trim();
 
-    if (username) {
-        fetch(`/Username/add?username=${encodeURIComponent(username)}`, {
-            method: "POST"
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                console.log(`Username ${username} was added`);
+    if (!username) {
+        // Default to "Anonymous" without sending a request
+        resetUsernameField("Anonymous user");
+        sendMessageBtn.disabled = false;
+        messageInput.disabled = false;
+        return;
+    }
+
+    // Validate the username via the controller
+    fetch(`/Username/add?username=${encodeURIComponent(username)}`, { method: "POST" })
+        .then(response => {
+            if (response.ok) {
+                resetUsernameField(""); // Clear any error state
                 sendMessageBtn.disabled = false;
                 messageInput.disabled = false;
-            })
-            .catch(error => {
-                console.error("There was a problem with the fetch operation:", error);
-                sendMessageBtn.disabled = true;
-                messageInput.disabled = true;
-            });
-    } else {
-        sendMessageBtn.disabled = true;
-        messageInput.disabled = true;
-    }
+            } else {
+                return response.text().then(text => { throw new Error(text); });
+            }
+        })
+        .catch(error => {
+            console.error("Error validating username:", error);
+            setUsernameFieldInvalid("Username is already taken.");
+            sendMessageBtn.disabled = true;
+            messageInput.disabled = true;
+        });
 });
+
+function resetUsernameField() {
+    const usernameInput = document.getElementById("usernameInput");
+    const statusPopup = document.getElementById("usernameStatus");
+
+    usernameInput.classList.remove("invalid");
+    statusPopup.textContent = "";
+}
+
+function setUsernameFieldInvalid(message) {
+    const usernameInput = document.getElementById("usernameInput");
+    const statusPopup = document.getElementById("usernameStatus");
+
+    usernameInput.classList.add("invalid");
+    statusPopup.textContent = message;
+    statusPopup.style.display = "block";
+}

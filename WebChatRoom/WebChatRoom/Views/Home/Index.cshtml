@@ -10,7 +10,6 @@
 
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/favicon_io/site.webmanifest">
 
     <!-- Link to the external CSS file -->
@@ -21,21 +20,16 @@
 </head>
 <body>
     <div class="chat-container">
-        <!-- Chat log (messages will appear here) -->
-        <div class="chat-log" id="chatLog">
-            <!-- Messages will be dynamically added here -->
-        </div>
-
-        <!-- Message input area -->
+        <div class="chat-log" id="chatLog"></div>
         <div class="message-input">
-            <!-- Username Input -->
-            <input type="text"
-                   id="usernameInput"
-                   class="form-control username-field"
-                   placeholder="Username"
-                   autocomplete="off" />
-
-            <!-- Message Box with Send Button -->
+            <div class="username-container">
+                <input type="text"
+                       id="usernameInput"
+                       class="form-control username-field"
+                       placeholder="Username"
+                       autocomplete="off" />
+                <div id="usernameStatus" class="status-popup"></div>
+            </div>
             <div class="message-box">
                 <input type="text"
                        id="messageInput"
@@ -46,8 +40,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Include the external JavaScript file -->
     <script src="~/js/chat.js"></script>
 </body>
 </html>
