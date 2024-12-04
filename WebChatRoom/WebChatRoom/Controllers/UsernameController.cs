@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 using WebChatRoom.Singletons;
-
 
 
 namespace WebChatRoom.Controllers
@@ -10,13 +8,14 @@ namespace WebChatRoom.Controllers
     public class UsernameController : ControllerBase
     {
 
-        
-
         [HttpPost("add")]
         public IActionResult AddUsername(string username)
         {
+            if (username == GetCurrentUsernameFromCookie())
+            {
+                return Ok("It is already your username");
+            }
 
-            
 
             if (ApplicationSingleton.AddUsername(username))
             {
@@ -31,7 +30,6 @@ namespace WebChatRoom.Controllers
             else
             {
                 return BadRequest("Username already exists today.");
-
             }
 
             return Ok("Username added successfully.");
