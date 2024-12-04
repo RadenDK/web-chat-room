@@ -18,6 +18,11 @@ namespace WebChatRoom.Singletons
             return Usernames.Add(newUsername);
         }
 
+        public static bool RemoveUsername(string username)
+        {
+            return Usernames.Remove(username);
+        }
+
         public static void AddChatMessage(ChatMessage message)
         {
             Messages.Add(message);
