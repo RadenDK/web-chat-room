@@ -1,12 +1,16 @@
 using WebChatRoom.Hubs;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 builder.Services.AddControllersWithViews();
 builder.Services.AddSignalR(); // Add SignalR services
 
-var app = builder.Build();
+// Register services
+builder.Services.AddHostedService<WebChatRoom.BackgroundServices.DailyCacheCleaner>();
+
+
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
