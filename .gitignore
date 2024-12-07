@@ -400,3 +400,5 @@ FodyWeavers.xsd
 */vendor/
 
 */.env
+
+CuteSmsBot/cute_img.jpg
