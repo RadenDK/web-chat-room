@@ -22,3 +22,11 @@ How do i use a libary?
 - But how do i install, in python i have pip, in c# i could use a gui tool to manage NuGet packages.
 - Here i learend about composer which is just pip but instead of installing globally it installs locally. I worried a lot about installing libaries because i found that process in java very hard and werid. But with composer it was very easy
 
+
+I revisted how to get a image because i didn't understand all that was needed for the file_get_contents. I found that there is a libary https://docs.guzzlephp.org/ that is basically the same as request in python
+I tried to do that and imidiatly ran into a problem
+PHP Fatal error:  Uncaught GuzzleHttp\Exception\RequestException: cURL error 60: SSL certificate problem: unable to get local issuer certificate
+what did i have to do to fix it. I had to go into the php.ini file and change a value in there to a cert i downloaded from here https://curl.se/docs/caextract.html
+
+
+I wanted to convert all images from the bing api result to jpg. But in the end that was too challenging and i just went with the simple solution to make sure the img was a jpg in the first place 
