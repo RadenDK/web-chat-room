@@ -396,3 +396,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+*/vendor/
+
+*/.env
+
+CuteSmsBot/cute_img.jpg
