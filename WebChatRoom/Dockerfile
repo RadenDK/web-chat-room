@@ -14,11 +14,11 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-# Expose port 7000
-EXPOSE 7000
+# Expose port 80
+EXPOSE 80
 
 # Set the environment variable for the port
-ENV ASPNETCORE_URLS=http://+:7000
+ENV ASPNETCORE_URLS=http://+:80
 
 # Set the entry point to run the API
 ENTRYPOINT ["dotnet", "WebChatRoom.dll"]
