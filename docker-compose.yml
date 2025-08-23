@@ -13,3 +13,6 @@ services:
       - ASPNETCORE_URLS=http://+:80
 
 
+networks:
+  appnet:
+    external: true
