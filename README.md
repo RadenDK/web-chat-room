@@ -6,4 +6,3 @@ It's a basic chatroom where messages are stored in memory on my server and reset
 
 You can try it out here: [https://chatroom.rasmusjensen.tech/](https://chatroom.rasmusjensen.tech/)  
 (If it's still up and running!)
-

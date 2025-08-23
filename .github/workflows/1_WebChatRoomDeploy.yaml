@@ -13,22 +13,8 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Build Docker Image
-        run: |
-          docker build \
-            -t webchatroom:latest \
-            -f WebChatRoom/Dockerfile \
-            WebChatRoom
+      - name: Docker Compose Down
+        run: docker compose down 
 
-      - name: Stop old container
-        run: docker rm -f webchatroom || true
-
-      - name: Run new container on shared network
-        run: |
-          docker run -d --restart=always \
-            --network appnet \
-            --name webchatroom \
-            webchatroom:latest
-
-      - name: Prune old Docker images
-        run: docker image prune -f
+      - name: Docker Compose Up (Build & Deploy)
+        run: docker compose up -d --build

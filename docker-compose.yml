@@ -1,0 +1,15 @@
+services:
+  webchatroom:
+    build:
+      context: ./WebChatRoom
+      dockerfile: Dockerfile
+    container_name: webchatroom
+    restart: always
+    networks:
+      - appnet
+    ports:
+      - "80:80"
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+
+
