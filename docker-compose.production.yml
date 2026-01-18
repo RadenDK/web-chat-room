@@ -1,17 +1,17 @@
 services:
   web-chat-room:
-    image: ghcr.io/radendk/chatroom:latest
+    image: ghcr.io/radendk/web-chat-room:latest
     container_name: web-chat-room
     restart: unless-stopped
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     networks:
-      - homeserver_web
+      - publicvm_web
     expose:
       - "80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
 networks:
-  homeserver_web:
+  publicvm_web:
     external: true
