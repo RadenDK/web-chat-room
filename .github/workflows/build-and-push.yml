@@ -43,22 +43,3 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Deploy to publicvm
-        run: |
-          # Setup SSH key
-          mkdir -p ~/.ssh
-          echo "${{ secrets.PUBLICVM_SSH_KEY }}" > ~/.ssh/id_ed25519_publicvm
-          chmod 600 ~/.ssh/id_ed25519_publicvm
-          
-          # Add host to known_hosts
-          ssh-keyscan -H 192.168.8.210 >> ~/.ssh/known_hosts
-          
-          # Create project directory on publicvm
-          ssh -i ~/.ssh/id_ed25519_publicvm publicvm@192.168.8.210 "mkdir -p ~/web-chat-room"
-          
-          # Copy docker-compose to publicvm
-          scp -i ~/.ssh/id_ed25519_publicvm docker-compose.production.yml publicvm@192.168.8.210:~/web-chat-room/docker-compose.yml
-          
-          # Deploy the container
-          ssh -i ~/.ssh/id_ed25519_publicvm publicvm@192.168.8.210 "cd ~/web-chat-room && docker compose pull && docker compose up -d"
