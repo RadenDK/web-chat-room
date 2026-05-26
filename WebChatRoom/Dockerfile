@@ -10,7 +10,7 @@ RUN dotnet restore "./WebChatRoom/WebChatRoom.csproj"
 RUN dotnet publish "./WebChatRoom/WebChatRoom.csproj" -c Release -o out
 
 # Use the .NET 8.0 runtime image to run the app
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 
