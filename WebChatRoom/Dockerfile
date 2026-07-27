@@ -1,5 +1,5 @@
 # Use the official .NET 8.0 SDK image to build the app
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build-env
 WORKDIR /app
 
 # Copy everything and restore as distinct layers
