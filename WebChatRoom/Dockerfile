@@ -1,4 +1,4 @@
-# Use the official .NET 8.0 SDK image to build the app
+# Use the official .NET 9.0 SDK image to build the app
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build-env
 WORKDIR /app
 
@@ -9,7 +9,7 @@ RUN dotnet restore "./WebChatRoom/WebChatRoom.csproj"
 # Build the application
 RUN dotnet publish "./WebChatRoom/WebChatRoom.csproj" -c Release -o out
 
-# Use the .NET 8.0 runtime image to run the app
+# Use the .NET 9.0 runtime image to run the app
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
 COPY --from=build-env /app/out .
